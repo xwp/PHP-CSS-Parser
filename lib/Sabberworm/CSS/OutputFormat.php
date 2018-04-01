@@ -43,7 +43,12 @@ class OutputFormat {
 	public $sSpaceAfterListArgumentSeparator = '';
 	
 	public $sSpaceBeforeOpeningBrace = ' ';
-	
+
+	// Content injected in and around declaration blocks.
+	public $sBeforeDeclarationBlock = '';
+	public $sAfterDeclarationBlockSelectors = '';
+	public $sAfterDeclarationBlock = '';
+
 	/**
 	* Indentation
 	*/
