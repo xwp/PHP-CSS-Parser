@@ -1,7 +1,7 @@
 PHP CSS Parser
 --------------
 
-[![build status](https://api.travis-ci.org/sabberworm/PHP-CSS-Parser.svg)](https://travis-ci.org/sabberworm/PHP-CSS-Parser) [![HHVM Status](http://hhvm.h4cc.de/badge/sabberworm/php-css-parser.svg)](http://hhvm.h4cc.de/package/sabberworm/php-css-parser)
+[![build status](https://api.travis-ci.org/xwp/PHP-CSS-Parser.svg)](https://travis-ci.org/xwp/PHP-CSS-Parser) [![HHVM Status](http://hhvm.h4cc.de/badge/sabberworm/php-css-parser.svg)](http://hhvm.h4cc.de/package/sabberworm/php-css-parser)
 
 A Parser for CSS Files written in PHP. Allows extraction of CSS files into a data structure, manipulation of said structure and output as (optimized) CSS.
 
@@ -13,8 +13,14 @@ Add php-css-parser to your composer.json
 
 ```json
 {
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/xwp/PHP-CSS-Parser"
+        }
+    ],
     "require": {
-        "sabberworm/php-css-parser": "*"
+        "sabberworm/php-css-parser": "dev-master"
     }
 }
 ```
