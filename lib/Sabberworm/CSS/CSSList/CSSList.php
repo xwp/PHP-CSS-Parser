@@ -6,6 +6,8 @@ use Sabberworm\CSS\Renderable;
 use Sabberworm\CSS\RuleSet\DeclarationBlock;
 use Sabberworm\CSS\RuleSet\RuleSet;
 use Sabberworm\CSS\Property\Selector;
+use Sabberworm\CSS\Property\Import;
+use Sabberworm\CSS\Property\Charset;
 use Sabberworm\CSS\Comment\Commentable;
 
 /**
@@ -38,6 +40,7 @@ abstract class CSSList implements Renderable, Commentable {
 	/**
 	 * Removes an item from the CSS list.
 	 * @param RuleSet|Import|Charset|CSSList $oItemToRemove May be a RuleSet (most likely a DeclarationBlock), a Import, a Charset or another CSSList (most likely a MediaQuery)
+	 * @return bool Whether the item was removed.
 	 */
 	public function remove($oItemToRemove) {
 		$iKey = array_search($oItemToRemove, $this->aContents, true);
