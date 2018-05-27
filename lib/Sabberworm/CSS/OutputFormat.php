@@ -4,6 +4,11 @@ namespace Sabberworm\CSS;
 
 use Sabberworm\CSS\Parsing\OutputException;
 
+/**
+ * Class OutputFormat
+ *
+ * @method OutputFormat setSemicolonAfterLastRule( bool $bSemicolonAfterLastRule ) Set whether semicolons are added after last rule.
+ */
 class OutputFormat {
 	/**
 	* Value format
