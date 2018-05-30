@@ -33,6 +33,20 @@ abstract class CSSList implements Renderable, Commentable {
 		return $this->iLineNo;
 	}
 
+	/**
+	 * Prepend item to list of contents.
+	 *
+	 * @param object $oItem Item.
+	 */
+	public function prepend($oItem) {
+		array_unshift($this->aContents, $oItem);
+	}
+
+	/**
+	 * Append item to list of contents.
+	 *
+	 * @param object $oItem Item.
+	 */
 	public function append($oItem) {
 		$this->aContents[] = $oItem;
 	}
@@ -46,6 +60,21 @@ abstract class CSSList implements Renderable, Commentable {
 		$iKey = array_search($oItemToRemove, $this->aContents, true);
 		if ($iKey !== false) {
 			unset($this->aContents[$iKey]);
+			return true;
+		}
+		return false;
+	}
+
+	/**
+	 * Replace one item with another one or more items.
+	 * @param RuleSet|Import|Charset|CSSList $oItemToRemove May be a RuleSet (most likely a DeclarationBlock), a Import, a Charset or another CSSList (most likely a MediaQuery)
+	 * @param object|array $aReplacedItems Item(s) to replace the item with.
+	 * @return bool Whether the item was removed.
+	 */
+	public function replace($oItemToRemove, $aReplacedItems) {
+		$iKey = array_search($oItemToRemove, $this->aContents, true);
+		if ($iKey !== false) {
+			array_splice($this->aContents, $iKey, 1, $aReplacedItems);
 			return true;
 		}
 		return false;
