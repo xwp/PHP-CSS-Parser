@@ -52,6 +52,17 @@ abstract class CSSList implements Renderable, Commentable {
 	}
 
 	/**
+	 * Splice the list of contents.
+	 *
+	 * @param int       $iOffset      Offset.
+	 * @param int       $iLength      Length. Optional.
+	 * @param RuleSet[] $mReplacement Replacement. Optional.
+	 */
+	public function splice($iOffset, $iLength = null, $mReplacement = null) {
+		array_splice($this->aContents, $iOffset, $iLength, $mReplacement);
+	}
+
+	/**
 	 * Removes an item from the CSS list.
 	 * @param RuleSet|Import|Charset|CSSList $oItemToRemove May be a RuleSet (most likely a DeclarationBlock), a Import, a Charset or another CSSList (most likely a MediaQuery)
 	 * @return bool Whether the item was removed.

@@ -65,6 +65,11 @@ class DeclarationBlock extends RuleSet {
 		$this->setSelectors($mSelector);
 	}
 
+	/**
+	 * Get selectors.
+	 *
+	 * @return Selector[] Selectors.
+	 */
 	public function getSelectors() {
 		return $this->aSelectors;
 	}
