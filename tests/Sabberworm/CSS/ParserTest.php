@@ -387,6 +387,39 @@ body {background-url: url("http://somesite.com/images/someimage.gif");}';
 		$this->assertSame($sExpected, $oDoc->render());
 	}
 
+	function testCalcInFile() {
+		$oDoc = $this->parsedStructureForFile('calc', Settings::create()->withMultibyteSupport(true));
+		$sExpected = 'div {width: calc(100% / 4);}
+div {height: -webkit-calc(9 / 16 * 100%) !important;width: -moz-calc(( 50px - 50% ) * 2);}';
+		$this->assertSame($sExpected, $oDoc->render());
+	}
+
+	function testGridLineNameInFile() {
+		$oDoc = $this->parsedStructureForFile('grid-linename', Settings::create()->withMultibyteSupport(true));
+		$sExpected = "div {grid-template-columns: [linename] 100px;}\nspan {grid-template-columns: [linename1 linename2] 100px;}";
+		$this->assertSame($sExpected, $oDoc->render());
+	}
+
+	function testEmptyGridLineNameLenientInFile() {
+		$oDoc = $this->parsedStructureForFile('empty-grid-linename');
+		$sExpected = '.test {grid-template-columns: [] 100px;}';
+		$this->assertSame($sExpected, $oDoc->render());
+	}
+
+	/**
+	* @expectedException Sabberworm\CSS\Parsing\UnexpectedTokenException
+	*/
+	function testLineNameFailure() {
+		$this->parsedStructureForFile('-empty-grid-linename', Settings::create()->withLenientParsing(false));
+	}
+
+	/**
+	* @expectedException Sabberworm\CSS\Parsing\UnexpectedTokenException
+	*/
+	function testCalcFailure() {
+		$this->parsedStructureForFile('-calc-no-space-around-minus', Settings::create()->withLenientParsing(false));
+	}
+
 	function testUrlInFileMbOff() {
 		$oDoc = $this->parsedStructureForFile('url', Settings::create()->withMultibyteSupport(false));
 		$sExpected = 'body {background: #fff url("http://somesite.com/images/someimage.gif") repeat top center;}
@@ -418,6 +451,12 @@ body {background-url: url("http://somesite.com/images/someimage.gif");}';
 		$this->assertSame($sExpected, $oDoc->render());
 	}
 
+	function testTrailingWhitespace() {
+		$oDoc = $this->parsedStructureForFile('trailing-whitespace', Settings::create()->withLenientParsing(false));
+		$sExpected = 'div {width: 200px;}';
+		$this->assertSame($sExpected, $oDoc->render());
+	}
+
 	/**
 	* @expectedException Sabberworm\CSS\Parsing\UnexpectedTokenException
 	*/
@@ -430,6 +469,13 @@ body {background-url: url("http://somesite.com/images/someimage.gif");}';
 	*/
 	function testCharsetFailure2() {
 		$this->parsedStructureForFile('-charset-in-block', Settings::create()->withLenientParsing(false));
+	}
+
+	/**
+	* @expectedException Sabberworm\CSS\Parsing\SourceException
+	*/
+	function testUnopenedClosingBracketFailure() {
+		$this->parsedStructureForFile('unopened-close-brackets', Settings::create()->withLenientParsing(false));
 	}
 
 	function parsedStructureForFile($sFileName, $oSettings = null) {
